@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://java.sun.com/xml/ns/javaee">
+<head>
+  <meta charset="UTF-8">
+  <title>Users Table</title>
+</head>
+<body>
+<h1>Users table</h1>
+<table class="table table-dark">
+  <thead>
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Surname</th>
+    <th scope="col">Department</th>
+    <th scope="col">Update</th>
+    <th scope="col">Delete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="user : ${allUsers}">
+    <td th:text="${user.name}"></td>
+    <td th:text="${user.surname}"></td>
+    <td th:text="${user.department}"></td>
+    <td>
+      <a th:href="@{updateUser(id=${user.id})}">
+        <input type="button" value="Update"/>
+      </a>
+    </td>
+    <td>
+      <a th:href="@{deleteUser(id=${user.id})}">
+        <input type="button" value="Delete"/>
+      </a>
+    </td>
+  </tr>
+
+  </tbody>
+  <td>
+    <a th:href="@{addNewUser}">
+      <input type="button" value="Add"/>
+    </a>
+  </td>
+</table>
+</body>
+</html>
+
