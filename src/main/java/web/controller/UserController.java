@@ -28,20 +28,26 @@ public class UserController {
     @GetMapping("/addNewUser")
     public String addUser(Model model) {
         model.addAttribute("user", new User());
-        return "info-user";
+        return "add-user";
     }
 
     @PostMapping("/saveUser")
     public String saveUser(@ModelAttribute("user") User user) {
-        userService.saveUser(user);
+        userService.saveOrUpdateUser(user);
         return "redirect:/";
     }
 
     @GetMapping("/updateUser")
-    public String updateUser(@RequestParam("id") Long id, Model model) {
+    public String showUpdateUserForm(@RequestParam("id") Long id, Model model) {
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
-        return "info-user";
+        return "update-user";
+    }
+
+    @PostMapping("/updateUser")
+    public String updateUser(@ModelAttribute("user") User user) {
+        userService.saveOrUpdateUser(user);
+        return "redirect:/";
     }
 
     @GetMapping("/deleteUser")
