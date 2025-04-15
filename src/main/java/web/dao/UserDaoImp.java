@@ -1,15 +1,10 @@
 package web.dao;
-
-import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import web.model.User;
-
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Repository
 public class UserDaoImp implements UserDao {
@@ -24,9 +19,21 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
-    public void saveOrUpdateUser(User user) {
-        entityManager.merge(user);
+    public void update(User user) {
+        if (getUserById(user.getId()) == null) {
+            throw new NoSuchElementException("Пользователь с ID " + user.getId() + " не найден.");
+        } else {
+            entityManager.merge(user);
+        }
     }
+
+    @Override
+    public void save(User user) {
+        entityManager.persist(user);
+    }
+
+
+
 
     @Override
     public User getUserById(Long id) {
