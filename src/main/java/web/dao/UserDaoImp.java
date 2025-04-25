@@ -20,11 +20,7 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public void update(User user) {
-        if (getUserById(user.getId()) == null) {
-            throw new NoSuchElementException("Пользователь с ID " + user.getId() + " не найден.");
-        } else {
-            entityManager.merge(user);
-        }
+        entityManager.merge(user);
     }
 
     @Override
